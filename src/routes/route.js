@@ -2,20 +2,15 @@ const express = require('express');
 const abc = require('../introduction/intro')
 const router = express.Router();
 
-router.get('/test-me', function (req, res) {
-    console.log('My batch is', abc.name)
-    abc.printName()
-    logger.welcome()
+router.get('/movies', function (req, res) {
+    let movie = [ 'The Conjuring', 'The Excorcist', 'The Nun', 'Annabelle', 'A Nightmare on Elm Street','The Return of Michael Myers']
 
-    res.send('My second ever api!')
+    res.send(movie)
 });
 
-router.get('/students', function (req, res){
-    let students = ['Sabiha', 'Neha', 'Akash']
-    res.send(students)
-})
 
-router.get('/student-details/:name', function(req, res){
+
+router.get('/movies/:indexnumber', function(req, res){
     /*
     params is an attribute inside request that contains 
     dynamic values.
@@ -24,15 +19,72 @@ router.get('/student-details/:name', function(req, res){
     and value is what is sent in the request
     */
 
-    let requestParams = req.params
+    let movie = [ "Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
+    console.log("the req object is: "  + JSON.stringify(req.params));
+    let i= req.params.indexnumber;
+    validMaxValue= movie.length;
+    let movieCorrespondingToIndex = '';
+    if(i<validMaxValue){
+     res.send(movieCorrespondingToIndex = movie[i])
+    }else {
+      res.send(movieCorrespondingToIndex= "Please provide proper index for getting movies name")
+    }
 
-    // JSON strigify function helps to print an entire object
-    // We can use any ways to print an object in Javascript, JSON stringify is one of them
-    console.log("This is the request "+ JSON.stringify(requestParams))
-    let studentName = requestParams.name
-    console.log('Name of the student is ', studentName)
-    
-    res.send('Dummy response')
+    // res.send(movieCorrespondingToIndex)
 })
+
+router.get('/films', function (req, res) {
+    let film = [ {
+        id: 1,
+        name: 'The Shining'
+       }, {
+        id: 2,
+        name: 'Incendies'
+       }, {
+        id: 3,
+        name: 'Rang de Basanti'
+       }, {
+        id: 4,
+        name: 'Finding Nemo'
+       }]
+    res.send(film);
+})
+
+router.get("/films/:filmId", function(req,res){
+  
+    let film = [ {
+      id: 1,
+      name: 'The Shining'
+     }, {
+      id: 2,
+      name: 'Incendies'
+     }, {
+      id: 3,
+      name: 'Rang de Basanti'
+     }, {
+      id: 4,
+      name: 'Finding Nemo'
+     }]
+      console.log("The request objects is " + JSON.stringify(req.params));
+      let result='';
+      let fid= req.params.filmId
+      let filmLength = film.length 
+      if(fid>0 && fid<=filmLength){
+        for(let i=0; i<film.length;i++){
+          if(fid== film[i].id){
+           result=  JSON.stringify(film[i])
+           console.log(result);
+          }
+        }
+      }
+       else{
+        result= "No movie exists with this id"
+        console.log(result);
+       }
+
+     res.send(result);
+  })
+
+
 
 module.exports = router;
