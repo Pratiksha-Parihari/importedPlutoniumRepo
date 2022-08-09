@@ -30,7 +30,7 @@ router.get('/movies/:indexnumber', function(req, res){
       res.send(movieCorrespondingToIndex= "Please provide proper index for getting movies name")
     }
 
-    // res.send(movieCorrespondingToIndex)
+    //  res.send(movieCorrespondingToIndex)
 })
 
 router.get('/films', function (req, res) {
