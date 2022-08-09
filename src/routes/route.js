@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/test-me', function (req, res) {
     console.log('My batch is', abc.name)
     abc.printName()
-    logger.welcome()
+    // logger.welcome()
 
     res.send('My second ever api!')
 });
@@ -25,6 +25,7 @@ router.get('/student-details/:name', function(req, res){
     */
 
     let requestParams = req.params
+    console.log(requestParams);
 
     // JSON strigify function helps to print an entire object
     // We can use any ways to print an object in Javascript, JSON stringify is one of them
